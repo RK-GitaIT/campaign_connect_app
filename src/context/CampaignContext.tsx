@@ -26,6 +26,7 @@ interface CampaignContextType {
 const CampaignContext = createContext<CampaignContextType | undefined>(undefined);
 
 export function CampaignProvider({ children }: { children: React.ReactNode }) {
+  // 1. State Management
   const [service] = useState(() => ServiceFactory.getInstance().getCampaignService());
   const [agent, setAgent] = useState<Agent | null>(null);
   const [currentCall, setCurrentCall] = useState<CallData | null>(null);
@@ -35,30 +36,32 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
   const [callTypes, setCallTypes] = useState<CallType[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  useEffect(() => {
-    const initializeData = async () => {
-      try {
-        // Initialize data
-        const agents = service.getAgents();
-        if (!agents.length) {
-          throw new Error('No agents found');
-        }
-        
-        setAgent(agents[0]); // Set first agent as current
-        setCurrentCall(service.getCurrentCall());
-        setInboundCalls(service.getInboundCalls());
-        setTransfers(service.getTransfers());
-        setCallStatuses(service.getCallStatuses());
-        setCallTypes(service.getCallTypes());
-        setIsInitialized(true);
-      } catch (error) {
-        console.error('Failed to initialize campaign data:', error);
+  // 2. Private Methods
+  const initializeData = async () => {
+    try {
+      const agents = service.getAgents();
+      if (!agents.length) {
+        throw new Error('No agents found');
       }
-    };
+      
+      setAgent(agents[0]);
+      setCurrentCall(service.getCurrentCall());
+      setInboundCalls(service.getInboundCalls());
+      setTransfers(service.getTransfers());
+      setCallStatuses(service.getCallStatuses());
+      setCallTypes(service.getCallTypes());
+      setIsInitialized(true);
+    } catch (error) {
+      console.error('Failed to initialize campaign data:', error);
+    }
+  };
 
+  // 3. Effects
+  useEffect(() => {
     initializeData();
   }, [service]);
 
+  // 4. Public Methods
   const updateCallStatus = (callId: string, status: CallStatus['status']) => {
     service.updateCallStatus(callId, status);
     setCallStatuses(service.getCallStatuses());
@@ -88,6 +91,7 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
     setCurrentCall(service.getCurrentCall());
   };
 
+  // 5. Context Value
   const value = {
     agent,
     currentCall,
@@ -106,6 +110,7 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
     setCurrentCallById,
   };
 
+  // 6. Render
   return (
     <CampaignContext.Provider value={value}>
       {children}
