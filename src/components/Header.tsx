@@ -1,121 +1,107 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { useCampaign } from '../context/CampaignContext';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Header() {
-  const { agent, updateAgentStatus } = useCampaign();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [autoDialCountdown, setAutoDialCountdown] = useState(10);
+  const [isManualMode, setIsManualMode] = useState(false);
 
-  if (!agent) return null;
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (!isManualMode && autoDialCountdown > 0) {
+      timer = setInterval(() => {
+        setAutoDialCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [autoDialCountdown, isManualMode]);
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <Image
-                src="/images/logo.png"
-                alt="Campaign Connect"
-                width={40}
-                height={40}
-                className="h-8 w-auto"
-              />
-            </div>
-            <div className="ml-4">
-              <h1 className="text-xl font-semibold text-gray-900">Campaign Connect</h1>
-            </div>
+    <div className="flex flex-col md:flex-row items-center justify-between bg-white shadow-md p-4 mb-5 pl-6 pr-6">
+      
+      {/* Left Section */}
+      <div className="flex items-center space-x-2 mb-4 md:mb-0">
+        <div className="flex items-center">
+          {/* SVG Logo */}
+          <svg
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="44.000000pt"
+            height="50.000000pt"
+            viewBox="0 0 44.000000 69.000000"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <g
+              transform="translate(0.000000,69.000000) scale(0.100000,-0.100000)"
+              fill="#cb90a5"
+              stroke="none"
+            >
+              <path d="M162 460 c-16 -15 -22 -32 -22 -60 0 -54 28 -82 77 -78 49 4 57 28 8 26 -44 -2 -58 12 -57 53 1 38 15 49 60 49 45 0 37 24 -9 28 -24 2 -41 -3 -57 -18z" />
+              <path d="M205 411 c-7 -13 5 -19 39 -19 31 1 56 -23 56 -52 0 -30 -27 -54 -59 -55 -42 0 -40 -19 2 -23 51 -5 82 25 82 78 0 32 -6 47 -24 61 -24 20 -86 26 -96 10z" />
+            </g>
+          </svg>
+          <span className="text-lg font-semibold text-purple-600 ml-2">
+            CampaignConnect
+          </span>
+        </div>
+        <div className="h-12 border-l border-gray-300 mx-7"></div>
+
+        {/* Middle Section (Agent Info) */}
+        <div className="flex items-center space-x-4">
+          <div className="relative w-12 h-12">
+            <Image
+              src="https://randomuser.me/api/portraits/men/10.jpg"
+              alt="User"
+              width={48}
+              height={48}
+              className="w-12 h-12 rounded-full border border-gray-300"
+            />
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
           </div>
-
-          <div className="flex items-center">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100">
-                {agent.avatar ? (
-                  <Image
-                    src={agent.avatar}
-                    alt={agent.name}
-                    width={40}
-                    height={40}
-                    className="object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/default-avatar.svg';
-                      target.onerror = () => {
-                        target.style.display = 'none';
-                        target.parentElement?.classList.add('bg-gradient-to-br', 'from-indigo-500', 'to-purple-500');
-                        const initials = agent.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                        const span = document.createElement('span');
-                        span.className = 'w-full h-full flex items-center justify-center text-white font-semibold text-lg';
-                        span.textContent = initials;
-                        target.parentElement?.appendChild(span);
-                      };
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">
-                      {agent.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <div className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white ${
-                agent.status === 'online' ? 'bg-green-500' :
-                agent.status === 'away' ? 'bg-yellow-500' :
-                'bg-gray-500'
-              }`}></div>
-            </div>
-
-            <div className="ml-4 relative">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="flex items-center text-gray-700 hover:text-gray-900"
-              >
-                <span className="mr-2">{agent.name}</span>
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {isMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div className="py-1">
-                    <button
-                      onClick={() => {
-                        updateAgentStatus(agent.id, 'online');
-                        setIsMenuOpen(false);
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Set Online
-                    </button>
-                    <button
-                      onClick={() => {
-                        updateAgentStatus(agent.id, 'away');
-                        setIsMenuOpen(false);
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Set Away
-                    </button>
-                    <button
-                      onClick={() => {
-                        updateAgentStatus(agent.id, 'offline');
-                        setIsMenuOpen(false);
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Set Offline
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+          <div>
+            <div className="text-gray-800 font-semibold">John Doe</div>
+            <div className="text-gray-500 text-sm">Agent</div>
           </div>
         </div>
       </div>
-    </header>
+
+      {/* Auto Dialing Section */}
+      <div className="flex items-center rounded-lg px-4 py-2 text-gray-600 text-sm font-medium bg-gray-100 mb-4 md:mb-0 md:ml-4">
+        <span>Auto Dialing in</span>
+        <span className="font-bold ml-1 text-black">{autoDialCountdown} seconds</span>
+
+        {/* Pause Button */}
+        <button className="ml-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-300">
+          ⏸️
+        </button>
+
+        {/* Play Button */}
+        <button className="ml-2 w-7 h-7 flex items-center justify-center rounded-full bg-gray-300">
+          ▶️
+        </button>
+      </div>
+
+      {/* Right Section (Buttons) */}
+      <div className="flex items-center space-x-3 justify-between md:ml-auto">
+        <button
+          onClick={() => setIsManualMode(!isManualMode)}
+          className="px-3 py-2 border border-gray-600 rounded text-gray-700 text-sm"
+        >
+          Manual Mode
+        </button>
+
+        <button
+          onClick={() => setAutoDialCountdown(10)}
+          className="px-3 py-2 bg-green-500 text-white rounded text-sm"
+        >
+          Start Next Dial
+        </button>
+
+        <button className="text-red-500 p-2 flex items-center">
+          ⏏️
+        </button>
+      </div>
+    </div>
   );
-} 
+}

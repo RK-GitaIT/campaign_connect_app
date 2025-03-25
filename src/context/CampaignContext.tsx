@@ -34,6 +34,7 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
   const [callTypes, setCallTypes] = useState<CallType[]>([]);
 
   useEffect(() => {
+    console.log("Hello RK");
     // Initialize data
     const agents = service.getAgents();
     setAgent(agents[0]); // Set first agent as current

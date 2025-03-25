@@ -14,7 +14,7 @@ export default function Home() {
     <CampaignProvider>
       <div className="min-h-screen bg-[#F9FAFB]">
         <Header />
-        <main className="container mx-auto px-5 py-4">
+        <main className="container mx-auto  py-4">
           <div className="flex gap-5">
             <div className="w-[280px]">
               <CustomerInfo />
