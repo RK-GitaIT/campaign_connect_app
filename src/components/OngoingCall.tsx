@@ -1,88 +1,117 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useCampaign } from '../context/CampaignContext';
 
-interface OngoingCallProps {
-  duration: number;
-  onMute: () => void;
-  onHangup: () => void;
-  onPause: () => void;
-  onKeypad: () => void;
-}
+export default function OngoingCall() {
+  const { currentCall, updateCallStatus, transferCall, agent, setCurrentCallById } = useCampaign();
+  const [callDuration, setCallDuration] = useState('00:00:00');
+  const [isMuted, setIsMuted] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
-export function OngoingCall({
-  duration,
-  onMute,
-  onHangup,
-  onPause,
-  onKeypad
-}: OngoingCallProps) {
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const remainingSeconds = seconds % 60
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
-  }
+  useEffect(() => {
+    if (!currentCall) return;
+
+    let startTime = new Date();
+    const timer = setInterval(() => {
+      const now = new Date();
+      const diff = Math.floor((now.getTime() - startTime.getTime()) / 1000);
+      const hours = Math.floor(diff / 3600);
+      const minutes = Math.floor((diff % 3600) / 60);
+      const seconds = diff % 60;
+      setCallDuration(
+        `${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+      );
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [currentCall]);
+
+  if (!currentCall || !agent) return null;
+
+  const handleEndCall = () => {
+    updateCallStatus(currentCall.id, 'ended');
+    setCurrentCallById(''); // Clear current call
+  };
+
+  const handleTransfer = () => {
+    // In a real app, you would show a transfer dialog
+    // For now, we'll transfer to the next available agent
+    const nextAgentId = '2'; // This should come from a proper agent selection
+    transferCall(currentCall.id, agent.id, nextAgentId, 'Customer requested transfer');
+  };
 
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg">
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Ongoing Call</h2>
-          <div className="flex items-center">
-            <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-            <span>{formatTime(duration)}</span>
+    <div className="flex flex-col space-y-6 p-6">
+      {/* Call Header */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Ongoing Call</h2>
+            <p className="text-sm text-gray-500">Duration: {callDuration}</p>
           </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={onMute}
-            className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-gray-800 hover:bg-gray-700"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-            </svg>
-            <span>Mute</span>
-          </button>
-
-          <button
-            onClick={onHangup}
-            className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-red-600 hover:bg-red-700"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z" />
-            </svg>
-            <span>End Call</span>
-          </button>
-
-          <button
-            onClick={onPause}
-            className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-gray-800 hover:bg-gray-700"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Pause</span>
-          </button>
-
-          <button
-            onClick={onKeypad}
-            className="flex items-center justify-center space-x-2 p-3 rounded-lg bg-gray-800 hover:bg-gray-700"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Keypad</span>
-          </button>
-        </div>
-
-        <div className="flex justify-center">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full px-6 py-2">
-            Call Controls
+          <div className="flex space-x-4">
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className={`p-2 rounded-full ${
+                isMuted ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={isMuted ? 'M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z' : 'M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z'}
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className={`p-2 rounded-full ${
+                isPaused ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-600'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={isPaused ? 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z' : 'M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z'}
+                />
+              </svg>
+            </button>
+            <button
+              onClick={handleTransfer}
+              className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={handleEndCall}
+              className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 } 

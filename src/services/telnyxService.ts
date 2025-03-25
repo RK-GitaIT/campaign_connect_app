@@ -1,119 +1,65 @@
-import { Client } from '@telnyx/webrtc'
-
-interface CallOptions {
-  destinationNumber: string;
-  callerNumber: string;
-}
+import { CallData } from '../interfaces/models';
 
 class TelnyxService {
-  private client: any;
-  private currentCall: any;
-  private onCallStatusChange?: (status: string) => void;
-  private onCallDurationChange?: (duration: number) => void;
+  private mockToken = 'KEY0195C6E44671A1C04210810DEA9BB5EC_gTeATcx1xH9PzlTlntNTjc';
 
+  // This will be replaced with actual Telnyx client initialization
   constructor() {
-    this.client = new Client({
-      login_token: process.env.NEXT_PUBLIC_TELNYX_LOGIN_TOKEN!,
-    })
-
-    this.setupEventListeners()
+    console.log('TelnyxService initialized with mock data');
   }
 
-  private setupEventListeners() {
-    this.client.on('telnyx.ready', () => {
-      console.log('Telnyx client is ready')
-    })
-
-    this.client.on('telnyx.error', (error: any) => {
-      console.error('Telnyx error:', error)
-    })
-
-    this.client.on('telnyx.notification', (notification: any) => {
-      console.log('Telnyx notification:', notification)
-    })
+  // Mock function to simulate call initialization
+  async initiateCall(phoneNumber: string): Promise<{ callId: string }> {
+    console.log(`Initiating call to ${phoneNumber}`);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ callId: `mock-call-${Date.now()}` });
+      }, 1000);
+    });
   }
 
-  public setCallStatusCallback(callback: (status: string) => void) {
-    this.onCallStatusChange = callback
+  // Mock function to end call
+  async endCall(callId: string): Promise<void> {
+    console.log(`Ending call ${callId}`);
+    return new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
   }
 
-  public setCallDurationCallback(callback: (duration: number) => void) {
-    this.onCallDurationChange = callback
+  // Mock function to handle DTMF tones
+  async sendDTMF(callId: string, digit: string): Promise<void> {
+    console.log(`Sending DTMF ${digit} for call ${callId}`);
+    return new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
   }
 
-  public async makeCall(options: CallOptions) {
-    try {
-      this.currentCall = await this.client.newCall({
-        destinationNumber: options.destinationNumber,
-        callerNumber: options.callerNumber,
-      })
-
-      this.currentCall.on('state', (state: any) => {
-        if (this.onCallStatusChange) {
-          this.onCallStatusChange(state.current)
-        }
-      })
-
-      let duration = 0
-      const durationInterval = setInterval(() => {
-        if (this.onCallDurationChange) {
-          this.onCallDurationChange(duration++)
-        }
-      }, 1000)
-
-      this.currentCall.on('hangup', () => {
-        clearInterval(durationInterval)
-        if (this.onCallStatusChange) {
-          this.onCallStatusChange('disconnected')
-        }
-      })
-
-      return this.currentCall
-    } catch (error) {
-      console.error('Error making call:', error)
-      throw error
-    }
+  // Mock function to toggle mute
+  async toggleMute(callId: string, muted: boolean): Promise<void> {
+    console.log(`${muted ? 'Muting' : 'Unmuting'} call ${callId}`);
+    return new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
   }
 
-  public async hangupCall() {
-    if (this.currentCall) {
-      try {
-        await this.currentCall.hangup()
-        this.currentCall = null
-      } catch (error) {
-        console.error('Error hanging up call:', error)
-        throw error
-      }
-    }
+  // Mock function to save call data
+  async saveCallData(callData: CallData): Promise<void> {
+    console.log('Saving call data:', callData);
+    return new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
   }
 
-  public async toggleMute() {
-    if (this.currentCall) {
-      try {
-        if (this.currentCall.isMuted) {
-          await this.currentCall.unmute()
-        } else {
-          await this.currentCall.mute()
-        }
-        return this.currentCall.isMuted
-      } catch (error) {
-        console.error('Error toggling mute:', error)
-        throw error
-      }
-    }
-    return false
-  }
-
-  public async sendDTMF(digit: string) {
-    if (this.currentCall) {
-      try {
-        await this.currentCall.sendDTMF(digit)
-      } catch (error) {
-        console.error('Error sending DTMF:', error)
-        throw error
-      }
-    }
+  // This will be implemented later with actual token management
+  async refreshToken(): Promise<string> {
+    console.log('Refreshing Telnyx token');
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.mockToken);
+      }, 1000);
+    });
   }
 }
 
-export const telnyxService = new TelnyxService() 
+// Export singleton instance
+export const telnyxService = new TelnyxService();

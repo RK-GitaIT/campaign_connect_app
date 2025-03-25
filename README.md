@@ -1,153 +1,171 @@
 # Campaign Connect App
 
-A modern call center application built with Next.js and Telnyx for managing outbound calling campaigns. The application provides a streamlined interface for agents to manage calls, track vehicle information, and handle customer interactions.
+A modern React application for managing campaign calls, customer interactions, and vehicle service information. Built with Next.js, TypeScript, and Tailwind CSS.
 
-## 🚀 Features
-
-- **Auto-Dialing System**: Automated call queuing with countdown timer
-- **Real-time Call Management**: Live call controls including mute, hangup, and keypad
-- **Vehicle Information Tracking**: Detailed vehicle and service information display
-- **Cost Management**: Track labor and parts costs for services
-- **Agent Dashboard**: Comprehensive interface for call center agents
-- **Telnyx Integration**: Professional-grade calling capabilities
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-📂 src
-│── 📂 app                      # App Router-based directory
-│   │── 📂 (dashboard)          # Dashboard route group
-│   │   │── layout.tsx          # Dashboard layout with navigation
-│   │   └── page.tsx           # Main dashboard view
-│   │── layout.tsx             # Root layout with providers
-│   └── page.tsx               # Landing page
-│
-│── 📂 components              # React components
-│   │── 📂 ui                  # Shared UI components
-│   │   └── Card.tsx          # Reusable card component
-│   │── CallInterface.tsx      # Auto-dialing interface
-│   │── CallDetails.tsx        # Vehicle and company information
-│   └── OngoingCall.tsx       # Active call controls
-│
-│── 📂 services                # API and service integrations
-│   └── telnyxService.ts      # Telnyx WebRTC integration
-│
-│── 📂 styles                  # Global styles
-│   └── globals.css           # Tailwind and global CSS
+campaign_connect_app/
+├── src/
+│   ├── app/
+│   │   └── page.tsx              # Main application page
+│   ├── components/
+│   │   ├── CustomerInfo.tsx      # Customer information display
+│   │   ├── Header.tsx           # Application header
+│   │   ├── OngoingCall.tsx      # Call management interface
+│   │   ├── ScriptSuggestions.tsx # Call script suggestions
+│   │   ├── ServiceInfo.tsx      # Service details form
+│   │   └── VehicleInfo.tsx      # Vehicle information display
+│   ├── context/
+│   │   └── CampaignContext.tsx  # Campaign state management
+│   ├── interfaces/
+│   │   └── models.ts            # TypeScript interfaces
+│   └── services/
+│       └── mockData.ts          # Mock data for development
+├── public/
+├── package.json
+└── tailwind.config.js
 ```
 
-## 🛠️ Technology Stack
+## Campaign Provider
 
-- **Framework**: Next.js 15.2
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: React Hooks & Context
-- **Calling Integration**: Telnyx WebRTC SDK
-- **Development Tools**: ESLint, Turbopack
+The `CampaignContext` provides centralized state management for:
 
-## 🚦 Getting Started
+- Call Management (start, end, mute, pause)
+- Auto-dialing System
+- Customer Information
+- Vehicle Details
+- Service Information
+- Script Suggestions
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd campaign_connect_app
-   ```
+### Key Features:
+- Manual/Auto mode switching
+- Real-time call duration tracking
+- Call status management
+- Mute/Pause functionality
+- Script suggestion management
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## Services
 
-3. **Set up environment variables**
-   Create a `.env.local` file:
-   ```env
-   NEXT_PUBLIC_TELNYX_LOGIN_TOKEN=your_telnyx_token
-   ```
+The application includes several service modules:
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+1. **Call Management**
+   - Auto-dialing system
+   - Call status tracking
+   - Call controls (mute, pause, end)
 
-   Open [http://localhost:3000](http://localhost:3000) to view the application.
+2. **Customer Management**
+   - Customer information storage
+   - Address management
+   - Company details
 
-## 📞 Telnyx Integration
+3. **Vehicle Services**
+   - Vehicle information tracking
+   - Service history
+   - Cost estimation
 
-The application uses Telnyx for handling calls. Key features include:
-- WebRTC-based calling
-- Call state management
-- Mute/unmute functionality
-- DTMF support
-- Call duration tracking
+## Development Setup
 
-To use the calling features:
-1. Sign up for a Telnyx account
-2. Create a WebRTC credential
-3. Add your Telnyx login token to `.env.local`
-4. Configure your Telnyx number in the dashboard
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/campaign_connect_app.git
+cd campaign_connect_app
+```
 
-## 💻 Component Documentation
+2. Install dependencies:
+```bash
+npm install
+```
 
-### CallInterface
-- Displays agent information
-- Manages auto-dialing countdown
-- Provides manual/auto mode switching
-- Shows active call duration
+3. Start the development server:
+```bash
+npm run dev
+```
 
-### CallDetails
-- Displays company information
-- Shows vehicle details
-- Manages service costs
-- Handles notes and dispositions
+The application will be available at `http://localhost:3000`
 
-### OngoingCall
-- Provides call controls (mute, hangup, pause)
-- Shows real-time call duration
-- Includes keypad functionality
-- Displays call status
+## Production Deployment
 
-## 🔧 Configuration
+1. Build the application:
+```bash
+npm run build
+```
 
-### Tailwind CSS
-The project uses Tailwind CSS v4 with custom configuration:
-- Custom color schemes
-- Responsive design utilities
-- Component-based styles
+2. Start the production server:
+```bash
+npm start
+```
 
-### TypeScript
-Strict type checking is enabled with custom types for:
-- Call states
-- Vehicle information
-- API responses
-- Component props
+## Build Information
 
-## 📈 Future Enhancements
+To create a production build:
 
-- [ ] Add authentication system
-- [ ] Implement call recording
-- [ ] Add campaign management
-- [ ] Include reporting features
-- [ ] Add multi-agent support
-- [ ] Implement call analytics
+```bash
+npm run build
+```
 
-## 🤝 Contributing
+This will:
+- Compile TypeScript files
+- Optimize assets
+- Generate static pages
+- Create a production-ready build in the `.next` directory
 
+## Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_API_URL=your_api_url
+# Add other environment variables as needed
+```
+
+## Additional Information
+
+### Tech Stack
+- Next.js 15+ (App Router)
+- TypeScript
+- Tailwind CSS
+- React Context API
+
+### Key Features
+- Real-time call management
+- Auto-dialing system
+- Customer information tracking
+- Vehicle service management
+- Script suggestions
+- Modern, responsive UI
+
+### Browser Support
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+### Contributing
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-<!-- ## 📄 License
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-This project is licensed under the MIT License - see the LICENSE file for details. -->
+### Support
+For support, email support@campaignconnect.com or open an issue in the repository.
 
-## 👥 Authors
+## Troubleshooting
 
-- Polineni Rama krishan (Gita IT)
+Common issues and their solutions:
 
-## 🙏 Acknowledgments
+1. **Build Errors**
+   - Clear `.next` directory
+   - Delete `node_modules` and reinstall dependencies
 
-- Telnyx for providing the WebRTC SDK
-- Next.js team for the framework
-- Tailwind CSS team for the styling framework
+2. **Development Server Issues**
+   - Check port availability
+   - Verify environment variables
+
+3. **TypeScript Errors**
+   - Run `npm run type-check`
+   - Update TypeScript dependencies
