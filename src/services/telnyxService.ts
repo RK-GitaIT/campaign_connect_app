@@ -1,7 +1,7 @@
 import { CallData } from '../interfaces/models';
 
 class TelnyxService {
-  private mockToken = 'KEY0195C6E44671A1C04210810DEA9BB5EC_gTeATcx1xH9PzlTlntNTjc';
+  private mockToken = process.env.TELNYX_API_KEY;
 
   // This will be replaced with actual Telnyx client initialization
   constructor() {
@@ -53,9 +53,9 @@ class TelnyxService {
   // This will be implemented later with actual token management
   async refreshToken(): Promise<string> {
     console.log('Refreshing Telnyx token');
-    return new Promise((resolve) => {
+    return new Promise<string>((resolve) => {
       setTimeout(() => {
-        resolve(this.mockToken);
+        resolve(this.mockToken ?? 'mock-token');
       }, 1000);
     });
   }
