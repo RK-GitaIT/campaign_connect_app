@@ -15,6 +15,7 @@ interface CampaignContextType {
   campaignSettings: ReturnType<ICampaignService['getCampaignSettings']>;
   callHistory: ReturnType<ICampaignService['getCallHistory']>;
   performanceMetrics: ReturnType<ICampaignService['getPerformanceMetrics']>;
+  isInitialized: boolean;
   updateCallStatus: (callId: string, status: CallStatus['status']) => void;
   transferCall: (callId: string, fromAgentId: string, toAgentId: string, reason: string) => void;
   updateAgentStatus: (agentId: string, status: Agent['status']) => void;
@@ -32,17 +33,30 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
   const [transfers, setTransfers] = useState<Transfer[]>([]);
   const [callStatuses, setCallStatuses] = useState<CallStatus[]>([]);
   const [callTypes, setCallTypes] = useState<CallType[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    console.log("Hello RK");
-    // Initialize data
-    const agents = service.getAgents();
-    setAgent(agents[0]); // Set first agent as current
-    setCurrentCall(service.getCurrentCall());
-    setInboundCalls(service.getInboundCalls());
-    setTransfers(service.getTransfers());
-    setCallStatuses(service.getCallStatuses());
-    setCallTypes(service.getCallTypes());
+    const initializeData = async () => {
+      try {
+        // Initialize data
+        const agents = service.getAgents();
+        if (!agents.length) {
+          throw new Error('No agents found');
+        }
+        
+        setAgent(agents[0]); // Set first agent as current
+        setCurrentCall(service.getCurrentCall());
+        setInboundCalls(service.getInboundCalls());
+        setTransfers(service.getTransfers());
+        setCallStatuses(service.getCallStatuses());
+        setCallTypes(service.getCallTypes());
+        setIsInitialized(true);
+      } catch (error) {
+        console.error('Failed to initialize campaign data:', error);
+      }
+    };
+
+    initializeData();
   }, [service]);
 
   const updateCallStatus = (callId: string, status: CallStatus['status']) => {
@@ -84,6 +98,7 @@ export function CampaignProvider({ children }: { children: React.ReactNode }) {
     campaignSettings: service.getCampaignSettings(),
     callHistory: service.getCallHistory(),
     performanceMetrics: service.getPerformanceMetrics(),
+    isInitialized,
     updateCallStatus,
     transferCall,
     updateAgentStatus,
