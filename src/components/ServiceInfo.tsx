@@ -10,8 +10,10 @@ export default function ServiceInfo() {
   const [notes, setNotes] = useState(currentCall?.serviceInfo.notes || '');
 
   useEffect(() => {
+    if (!currentCall?.id) return;
+    
     const total = labor + parts;
-    updateCallInfo({
+    updateCallInfo(currentCall.id, {
       serviceInfo: {
         labor,
         parts,
@@ -19,7 +21,7 @@ export default function ServiceInfo() {
         notes,
       },
     });
-  }, [labor, parts, notes, updateCallInfo]);
+  }, [labor, parts, notes, updateCallInfo, currentCall?.id]);
 
   if (!currentCall) return null;
 
