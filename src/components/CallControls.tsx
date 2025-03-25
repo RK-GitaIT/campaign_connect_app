@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useApp } from '../context/AppContext';
+import { useCampaign } from '../context/CampaignContext';
 
 export const CallControls: React.FC = () => {
-  const { currentCall } = useApp();
+  const { currentCall } = useCampaign();
   const [duration, setDuration] = useState('00:00:00');
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export const CallControls: React.FC = () => {
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].map((key) => (
           <button
             key={key}
-            className="p-3 bg-gray-800 rounded-lg hover:bg-gray-700 text-center"
+            className="p-4 bg-gray-800 rounded-lg hover:bg-gray-700 text-xl font-bold"
           >
             {key}
           </button>
