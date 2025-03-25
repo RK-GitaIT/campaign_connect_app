@@ -8,7 +8,7 @@ export const CallControls: React.FC = () => {
   const [duration, setDuration] = useState('00:00:00');
 
   useEffect(() => {
-    let startTime = Date.now();
+    const startTime = Date.now();
     const timer = setInterval(() => {
       const diff = Date.now() - startTime;
       const hours = Math.floor(diff / 3600000).toString().padStart(2, '0');

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useCampaign } from '../context/CampaignContext';
-import { Agent } from '../interfaces/models';
 
 export default function Header() {
   const { agent, updateAgentStatus } = useCampaign();

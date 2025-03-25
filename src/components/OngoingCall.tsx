@@ -12,7 +12,7 @@ export default function OngoingCall() {
   useEffect(() => {
     if (!currentCall) return;
 
-    let startTime = new Date();
+    const startTime = new Date();
     const timer = setInterval(() => {
       const now = new Date();
       const diff = Math.floor((now.getTime() - startTime.getTime()) / 1000);
@@ -109,6 +109,30 @@ export default function OngoingCall() {
                 />
               </svg>
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Call Details */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Company</h3>
+            <p className="mt-1 text-lg font-semibold text-gray-900">{currentCall.customerInfo.company}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Address</h3>
+            <p className="mt-1 text-lg font-semibold text-gray-900">
+              {`${currentCall.customerInfo.address.street}, ${currentCall.customerInfo.address.city}, ${currentCall.customerInfo.address.state} ${currentCall.customerInfo.address.zipCode}`}
+            </p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Status</h3>
+            <p className="mt-1 text-lg font-semibold text-gray-900">{currentCall.callInfo.status}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Agent</h3>
+            <p className="mt-1 text-lg font-semibold text-gray-900">{agent.name}</p>
           </div>
         </div>
       </div>
