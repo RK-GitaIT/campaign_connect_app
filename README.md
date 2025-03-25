@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Campaign Connect App
 
-## Getting Started
+A modern call center application built with Next.js and Telnyx for managing outbound calling campaigns. The application provides a streamlined interface for agents to manage calls, track vehicle information, and handle customer interactions.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Auto-Dialing System**: Automated call queuing with countdown timer
+- **Real-time Call Management**: Live call controls including mute, hangup, and keypad
+- **Vehicle Information Tracking**: Detailed vehicle and service information display
+- **Cost Management**: Track labor and parts costs for services
+- **Agent Dashboard**: Comprehensive interface for call center agents
+- **Telnyx Integration**: Professional-grade calling capabilities
+
+## 📁 Project Structure
+
+```
+📂 src
+│── 📂 app                      # App Router-based directory
+│   │── 📂 (dashboard)          # Dashboard route group
+│   │   │── layout.tsx          # Dashboard layout with navigation
+│   │   └── page.tsx           # Main dashboard view
+│   │── layout.tsx             # Root layout with providers
+│   └── page.tsx               # Landing page
+│
+│── 📂 components              # React components
+│   │── 📂 ui                  # Shared UI components
+│   │   └── Card.tsx          # Reusable card component
+│   │── CallInterface.tsx      # Auto-dialing interface
+│   │── CallDetails.tsx        # Vehicle and company information
+│   └── OngoingCall.tsx       # Active call controls
+│
+│── 📂 services                # API and service integrations
+│   └── telnyxService.ts      # Telnyx WebRTC integration
+│
+│── 📂 styles                  # Global styles
+│   └── globals.css           # Tailwind and global CSS
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technology Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 15.2
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks & Context
+- **Calling Integration**: Telnyx WebRTC SDK
+- **Development Tools**: ESLint, Turbopack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚦 Getting Started
 
-## Learn More
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd campaign_connect_app
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables**
+   Create a `.env.local` file:
+   ```env
+   NEXT_PUBLIC_TELNYX_LOGIN_TOKEN=your_telnyx_token
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+   Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📞 Telnyx Integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application uses Telnyx for handling calls. Key features include:
+- WebRTC-based calling
+- Call state management
+- Mute/unmute functionality
+- DTMF support
+- Call duration tracking
+
+To use the calling features:
+1. Sign up for a Telnyx account
+2. Create a WebRTC credential
+3. Add your Telnyx login token to `.env.local`
+4. Configure your Telnyx number in the dashboard
+
+## 💻 Component Documentation
+
+### CallInterface
+- Displays agent information
+- Manages auto-dialing countdown
+- Provides manual/auto mode switching
+- Shows active call duration
+
+### CallDetails
+- Displays company information
+- Shows vehicle details
+- Manages service costs
+- Handles notes and dispositions
+
+### OngoingCall
+- Provides call controls (mute, hangup, pause)
+- Shows real-time call duration
+- Includes keypad functionality
+- Displays call status
+
+## 🔧 Configuration
+
+### Tailwind CSS
+The project uses Tailwind CSS v4 with custom configuration:
+- Custom color schemes
+- Responsive design utilities
+- Component-based styles
+
+### TypeScript
+Strict type checking is enabled with custom types for:
+- Call states
+- Vehicle information
+- API responses
+- Component props
+
+## 📈 Future Enhancements
+
+- [ ] Add authentication system
+- [ ] Implement call recording
+- [ ] Add campaign management
+- [ ] Include reporting features
+- [ ] Add multi-agent support
+- [ ] Implement call analytics
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+<!-- ## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details. -->
+
+## 👥 Authors
+
+- Polineni Rama krishan (Gita IT)
+
+## 🙏 Acknowledgments
+
+- Telnyx for providing the WebRTC SDK
+- Next.js team for the framework
+- Tailwind CSS team for the styling framework
