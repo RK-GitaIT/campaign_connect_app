@@ -31,6 +31,7 @@ export default function Header() {
             height="50.000000pt"
             viewBox="0 0 44.000000 69.000000"
             preserveAspectRatio="xMidYMid meet"
+            className="hover:scale-110 transition-transform duration-300"
           >
             <g
               transform="translate(0.000000,69.000000) scale(0.100000,-0.100000)"
@@ -41,7 +42,7 @@ export default function Header() {
               <path d="M205 411 c-7 -13 5 -19 39 -19 31 1 56 -23 56 -52 0 -30 -27 -54 -59 -55 -42 0 -40 -19 2 -23 51 -5 82 25 82 78 0 32 -6 47 -24 61 -24 20 -86 26 -96 10z" />
             </g>
           </svg>
-          <span className="text-lg font-semibold text-purple-600 ml-2">
+          <span className="text-lg font-semibold text-purple-600 ml-2 hover:scale-110 transition-transform duration-300">
             CampaignConnect
           </span>
         </div>
@@ -49,7 +50,7 @@ export default function Header() {
 
         {/* Middle Section (Agent Info) */}
         <div className="flex items-center space-x-4">
-          <div className="relative w-12 h-12">
+          <div className="relative w-12 h-12 hover:scale-110 transition-transform duration-300">
             <Image
               src="https://randomuser.me/api/portraits/men/10.jpg"
               alt="User"
@@ -71,36 +72,34 @@ export default function Header() {
         <span>Auto Dialing in</span>
         <span className="font-bold ml-1 text-black">{autoDialCountdown} seconds</span>
 
-        {/* Pause Button */}
-        <button className="ml-3 w-7 h-7 flex items-center justify-center rounded-full bg-gray-300">
-          ⏸️
-        </button>
+<button className="ml-3 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-110 transition-transform duration-300">
+    <i className="fas fa-pause"></i>
+</button>
 
-        {/* Play Button */}
-        <button className="ml-2 w-7 h-7 flex items-center justify-center rounded-full bg-gray-300">
-          ▶️
-        </button>
+<button className="ml-2 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-110 transition-transform duration-300">
+    <i className="fas fa-play"></i>
+</button>
       </div>
 
       {/* Right Section (Buttons) */}
       <div className="flex items-center space-x-3 justify-between md:ml-auto">
         <button
           onClick={() => setIsManualMode(!isManualMode)}
-          className="px-3 py-2 border border-gray-600 rounded text-gray-700 text-sm"
+          className="px-3 py-2 border border-gray-600 rounded text-gray-700 text-sm hover:scale-110 transition-transform duration-300"
         >
           Manual Mode
         </button>
 
         <button
           onClick={() => setAutoDialCountdown(10)}
-          className="px-3 py-2 bg-green-500 text-white rounded text-sm"
+          className="px-3 py-2 bg-green-500 text-white rounded text-sm hover:scale-110 transition-transform duration-300"
         >
           Start Next Dial
         </button>
 
-        <button className="text-red-500 p-2 flex items-center">
-          ⏏️
-        </button>
+        <button type="button" className="text-red-500 hover:text-red-700 p-2 flex items-center log-out hover:scale-110 transition-transform duration-300">
+            <i className="fa-solid fa-arrow-right-from-bracket text-xl "></i>
+          </button>
       </div>
     </div>
   );
