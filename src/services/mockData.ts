@@ -31,12 +31,12 @@ export const mockCallData: CallData[] = [
     id: '1',
     attempt: 1,
     customerInfo: {
-      company: 'Jiffy Lube Q2 2025',
+      company: 'Audi USA',
       address: {
-        street: '212 West Plano St',
-        city: 'Plano',
-        state: 'TX',
-        zipCode: '75063',
+        street: '2200 Ferdinand Porsche Dr',
+        city: 'Herndon',
+        state: 'VA',
+        zipCode: '20171',
       },
     },
     vehicleInfo: {
@@ -44,13 +44,11 @@ export const mockCallData: CallData[] = [
       make: 'Audi',
       model: 'Q5',
       type: 'SUV',
-      target:'Dealer',
-      replace:'Battery Replacement'
     },
     serviceInfo: {
-      labor: 75,
-      parts: 75,
-      total: 150,
+      labor: 80,
+      parts: 100,
+      total: 180,
       notes: '',
     },
     callInfo: {
@@ -62,27 +60,11 @@ export const mockCallData: CallData[] = [
     scriptSuggestions: [
       {
         id: 1,
-        text: 'Hi, Can you let me know the price for ___'
+        text: 'Hi, Can you let me know the price for a battery replacement?'
       },
       {
         id: 2,
-        text: `Hi, I was just trying to find the price of 'service'`
-      },
-      {
-        id: 3,
-        text: '  Hi, I was just trying to find out how much do you charge for'
-      },
-      {
-        id: 4,
-        text: '  Hi, I was just trying to find out how much do you charge for'
-      },
-      {
-        id: 5,
-        text: 'Hi, I was just trying to find out how much do you charge for'
-      },
-      {
-        id: 6,
-        text: '  Hi, I was just trying to find out how much do you charge for'
+        text: 'Hi, I was just trying to find out the cost of service.'
       }
     ]
   },
@@ -90,24 +72,24 @@ export const mockCallData: CallData[] = [
     id: '2',
     attempt: 1,
     customerInfo: {
-      company: 'AutoZone Q2 2025',
+      company: 'Tesla Service Center',
       address: {
-        street: '123 Main St',
-        city: 'Dallas',
-        state: 'TX',
-        zipCode: '75201',
+        street: '3500 Deer Creek Rd',
+        city: 'Palo Alto',
+        state: 'CA',
+        zipCode: '94304',
       },
     },
     vehicleInfo: {
-      year: '2026',
-      make: 'Toyota',
-      model: 'Camry',
+      year: '2025',
+      make: 'Tesla',
+      model: 'Model 3',
       type: 'Sedan',
     },
     serviceInfo: {
-      labor: 50,
-      parts: 100,
-      total: 150,
+      labor: 90,
+      parts: 120,
+      total: 210,
       notes: '',
     },
     callInfo: {
@@ -115,15 +97,138 @@ export const mockCallData: CallData[] = [
       status: 'pending',
     },
     target: 'Dealer',
-    service: 'Oil Change',
+    service: 'Tire Replacement',
     scriptSuggestions: [
       {
         id: 1,
-        text: 'Hi, I need to schedule an oil change'
+        text: 'Hi, I need to replace my Tesla Model 3 tires.'
       },
       {
         id: 2,
-        text: 'What are your oil change service options?'
+        text: 'Can you provide the cost of tire replacement?'
+      }
+    ]
+  },
+  {
+    id: '3',
+    attempt: 1,
+    customerInfo: {
+      company: 'BMW Service Center',
+      address: {
+        street: '500 BMW Plaza',
+        city: 'Woodcliff Lake',
+        state: 'NJ',
+        zipCode: '07677',
+      },
+    },
+    vehicleInfo: {
+      year: '2026',
+      make: 'BMW',
+      model: 'X5',
+      type: 'SUV',
+    },
+    serviceInfo: {
+      labor: 100,
+      parts: 150,
+      total: 250,
+      notes: '',
+    },
+    callInfo: {
+      duration: '00:00:00',
+      status: 'pending',
+    },
+    target: 'Dealer',
+    service: 'Brake Pad Replacement',
+    scriptSuggestions: [
+      {
+        id: 1,
+        text: 'Hi, I need new brake pads for my BMW X5.'
+      },
+      {
+        id: 2,
+        text: 'Can you provide a quote for brake pad replacement?'
+      }
+    ]
+  },
+  {
+    id: '4',
+    attempt: 1,
+    customerInfo: {
+      company: 'Mercedes-Benz Service',
+      address: {
+        street: '1 Mercedes Dr',
+        city: 'Montvale',
+        state: 'NJ',
+        zipCode: '07645',
+      },
+    },
+    vehicleInfo: {
+      year: '2027',
+      make: 'Mercedes-Benz',
+      model: 'C-Class',
+      type: 'Sedan',
+    },
+    serviceInfo: {
+      labor: 110,
+      parts: 130,
+      total: 240,
+      notes: '',
+    },
+    callInfo: {
+      duration: '00:02:45',
+      status: 'ongoing',
+    },
+    target: 'Dealer',
+    service: 'Engine Oil Change',
+    scriptSuggestions: [
+      {
+        id: 1,
+        text: 'Hi, I need an oil change for my Mercedes C-Class.'
+      },
+      {
+        id: 2,
+        text: 'Can you tell me your pricing for an oil change?'
+      }
+    ]
+  },
+  {
+    id: '5',
+    attempt: 1,
+    customerInfo: {
+      company: 'Lexus Dealership',
+      address: {
+        street: '123 Lexus Ave',
+        city: 'Los Angeles',
+        state: 'CA',
+        zipCode: '90001',
+      },
+    },
+    vehicleInfo: {
+      year: '2025',
+      make: 'Lexus',
+      model: 'RX 350',
+      type: 'SUV',
+    },
+    serviceInfo: {
+      labor: 85,
+      parts: 95,
+      total: 180,
+      notes: '',
+    },
+    callInfo: {
+      duration: '00:00:00',
+      status: 'pending',
+    },
+    target: 'Dealer',
+    service: 'Battery Inspection',
+    scriptSuggestions: [
+      {
+        id: 1,
+        text: 'Hi, I need a battery inspection for my Lexus RX 350.'
+      },
+      {
+        id: 2,
+        text: 'Can you tell me how much a battery check costs?'
       }
     ]
   }
