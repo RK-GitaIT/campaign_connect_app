@@ -9,8 +9,12 @@ export default function ScriptSuggestions() {
   if (!currentCall) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 md:p-6">
-    <h2 className="text-lg font-semibold text-gray-900 mb-4">Script Suggestions</h2>
+    <div className="bg-white rounded-lg shadow-xl p-4 md:p-6">
+    <div className="flex items-center space-x-3 mb-4">
+      <span className="bg-[#362b85] h-[30px] w-[30px] rounded-full flex"></span>
+      <h2 className="font-bold">Script Suggestions</h2>
+    </div>
+
     <div className="space-y-3">
       {currentCall.scriptSuggestions.map((suggestion) => (
         <button

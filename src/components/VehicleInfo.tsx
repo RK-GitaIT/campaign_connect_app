@@ -9,7 +9,7 @@ export default function VehicleInfo() {
   if (!currentCall) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-white rounded-lg shadow-xl p-6">
   <h2 className="text-lg font-semibold text-gray-900 mb-4">Vehicle Information</h2>
   <div className="flex flex-col lg:flex-row gap-4 pl-10">
     {/* First Row: Year and Make */}
