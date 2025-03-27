@@ -12,23 +12,24 @@ import OngoingCall from '@/components/OngoingCall';
 export default function Home() {
   return (
 <CampaignProvider>
-  <div className="min-h-screen bg-[#F9FAFB]">
+  <div className="min-h-screen bg-slate-100">
     <Header />
     <main className="py-4">
   <div className="flex flex-col md:flex-row gap-5 justify-center  ml-[30px]">
-    <div className="w-full md:w-[25%] lg:w-[25%]"> 
+    <div className="w-full md:w-[20%] lg:w-[20%]"> 
       <CustomerInfo />
       <div className="mt-4">
         <ScriptSuggestions />
       </div>
     </div>
 
-    <div className="flex-1 md:w-[67%] lg:w-[67%]">
+    <div className="flex-1 md:w-[78%] lg:w-[78%]">
       <VehicleInfo />
+      <div className="w-full h-[2px] bg-gray-600"></div>
       <ServiceInfo />
     </div>
 
-    <div className="w-full md:w-[25%] lg:w-[25%]"> 
+    <div className="w-full md:w-[20%] lg:w-[20%]"> 
       <OngoingCall />
     </div>
   </div>

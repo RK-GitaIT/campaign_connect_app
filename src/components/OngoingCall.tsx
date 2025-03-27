@@ -69,11 +69,12 @@ export default function OngoingCall() {
         MIDDLE SECTION:
         Dark bar with 4 square icon buttons
       */}
-      <div className="bg-[#2F3237] px-4 py-3 flex items-center justify-around">
+      <div className="bg-[#2F3237]">
+      <div className=" px-4 py-3 flex items-center space-x-3">
         {/* 1) Mute/Unmute */}
         <button
           onClick={() => setIsMuted(!isMuted)}
-          className="w-10 h-10 rounded-md bg-[#3A3D43] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
+          className="w-10 h-10 rounded-md bg-[#26292E] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
           title={isMuted ? "Unmute" : "Mute"}
         >
           <i className="fas fa-microphone-slash text-white"></i>
@@ -82,7 +83,7 @@ export default function OngoingCall() {
         {/* 2) Transfer */}
         <button
           onClick={handleTransfer}
-           className="w-10 h-10 rounded-md bg-[#3A3D43] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
+           className="w-10 h-10 rounded-md bg-[#26292E] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
           title="Transfer Call"
         >
           <i className="fas fa-phone text-white"></i>
@@ -91,7 +92,7 @@ export default function OngoingCall() {
         {/* 3) Pause/Resume */}
         <button
           onClick={() => setIsPaused(!isPaused)}
-           className="w-10 h-10 rounded-md bg-[#3A3D43] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
+           className="w-10 h-10 rounded-md bg-[#26292E] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
           title={isPaused ? "Resume" : "Pause"}
         >
           <i className="fas fa-pause text-white"></i>
@@ -100,7 +101,7 @@ export default function OngoingCall() {
         {/* 4) Keypad (example) */}
         <button
           onClick={() => alert("Open keypad")}
-            className="w-10 h-10 rounded-md bg-[#3A3D43] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
+            className="w-10 h-10 rounded-md bg-[#26292E] flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
           title="Keypad"
         >
           <i className="fas fa-keyboard text-white"></i>
@@ -111,14 +112,15 @@ export default function OngoingCall() {
         BOTTOM SECTION:
         Full-width gradient bar with End Call icon
       */}
-      <div className="bg-gradient-to-r from-red-500 to-purple-500 h-14 flex items-center justify-center">
+      <div className="bg-gradient-to-r from-red-500 to-purple-500 h-11 flex items-center justify-center m-3 rounded-lg">
         <button
-          onClick={handleEndCall}
+         
              className="w-10 h-10 rounded-md text-white flex items-center justify-center border border-transparent hover:border-white hover:scale-110 transition-transform duration-300"
           title="End Call"
         >
           <i className="fas fa-phone-slash text-xl"></i>
         </button>
+      </div>
       </div>
     </div>
   );

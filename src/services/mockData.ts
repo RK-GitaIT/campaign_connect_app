@@ -44,6 +44,8 @@ export const mockCallData: CallData[] = [
       make: 'Audi',
       model: 'Q5',
       type: 'SUV',
+      target:'Dealer',
+      replace:'Battery Replacement'
     },
     serviceInfo: {
       labor: 75,
@@ -64,11 +66,23 @@ export const mockCallData: CallData[] = [
       },
       {
         id: 2,
-        text: 'Hi, I was just trying to find the price of service'
+        text: `Hi, I was just trying to find the price of 'service'`
       },
       {
         id: 3,
+        text: '  Hi, I was just trying to find out how much do you charge for'
+      },
+      {
+        id: 4,
+        text: '  Hi, I was just trying to find out how much do you charge for'
+      },
+      {
+        id: 5,
         text: 'Hi, I was just trying to find out how much do you charge for'
+      },
+      {
+        id: 6,
+        text: '  Hi, I was just trying to find out how much do you charge for'
       }
     ]
   },

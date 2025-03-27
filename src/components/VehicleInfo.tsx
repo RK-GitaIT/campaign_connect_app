@@ -9,34 +9,27 @@ export default function VehicleInfo() {
   if (!currentCall) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-xl p-6">
-  <h2 className="text-lg font-semibold text-gray-900 mb-4">Vehicle Information</h2>
-  <div className="flex flex-col lg:flex-row gap-4 pl-10">
-    {/* First Row: Year and Make */}
-    <div className="flex flex-col sm:flex-row lg:flex-1 gap-4 w-full">
-      <div className="flex-1 min-w-[160px]">
-        <label className="block text-lg font-medium text-gray-700">Year</label>
-        <p className="text-[#7b7b83] text-xl font-bold">{currentCall.vehicleInfo.year}</p>
-      </div>
-      <div className="flex-1 min-w-[160px]">
-        <label className="block text-lg font-medium text-gray-700">Make</label>
-        <p className="text-[#7b7b83] text-base font-normal">{currentCall.vehicleInfo.make}</p>
-      </div>
-    </div>
-    {/* Second Row: Model and Type */}
-    <div className="flex flex-col sm:flex-row lg:flex-1 gap-4 w-full">
-      <div className="flex-1 min-w-[160px]">
-        <label className="block text-lg font-medium text-gray-700">Model</label>
-        <p className="text-[#7b7b83] text-base font-normal">{currentCall.vehicleInfo.model}</p>
-      </div>
-      <div className="flex-1 min-w-[160px]">
-        <label className="block text-lg font-medium text-gray-700">Type</label>
-        <p className="text-[#7b7b83] text-base font-normal">{currentCall.vehicleInfo.type}</p>
-      </div>
-    </div>
-  </div>
-</div>
+    <div className=" p-8 bg-white rounded-tl-lg rounded-tr-lg shadow">
+    <h2 className="font-bold">Vehicle Information</h2>
+    <div className="flex flex-col md:flex-row justify-between md:items-center bg-slate-100 p-4 mt-4 rounded-lg">
+        <div>
+            <p className="font-bold">Vehicle</p>
+            <p className="text-[#7b7b83] text-xl font-bold">
+            {`${currentCall.vehicleInfo.year} ${currentCall.vehicleInfo.make} ${currentCall.vehicleInfo.model} ${currentCall.vehicleInfo.type}`}
+          </p>
 
+        </div>
+        <div>
+            <p className="font-bold" >Target</p>
+            <p className="vehicle-target">{currentCall.vehicleInfo.target}</p>
+        </div>
+        <div>
+            <p className="font-bold">Vehicle</p>
+            <p className="vehicle-target">{currentCall.vehicleInfo.replace}</p>
+        </div>
+    </div>
+  
+</div>
   
   );
 } 

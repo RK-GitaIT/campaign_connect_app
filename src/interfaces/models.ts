@@ -7,10 +7,12 @@ export interface Agent {
 }
 
 export interface VehicleInfo {
-  year: string;
-  make: string;
-  model: string;
-  type: string;
+  target?: string;
+  replace?: string;
+  year?: string;
+  make?: string;
+  model?: string;
+  type?: string;
 }
 
 export interface ServiceInfo {
