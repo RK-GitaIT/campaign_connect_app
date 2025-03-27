@@ -47,7 +47,7 @@ export default function OngoingCall() {
   };
 
   return (
-    <div className="w-72 bg-[#26292E] rounded-lg shadow-lg overflow-hidden">
+    <div className="w-[85%] bg-[#26292E] rounded-lg shadow-xl overflow-hidden">
       {/* 
         TOP SECTION:
         Large dark area for "Ongoing Call" label, 

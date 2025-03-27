@@ -14,25 +14,25 @@ export default function Home() {
 <CampaignProvider>
   <div className="min-h-screen bg-[#F9FAFB]">
     <Header />
-    <main className="container mx-auto py-4">
-      <div className="flex flex-col md:flex-row gap-5">
-        <div className="w-full md:w-2/3 lg:w-[400px]"> 
-          <CustomerInfo />
-          <div className="mt-4">
-            <ScriptSuggestions />
-          </div>
-        </div>
-
-        <div className="flex-1 max-w-[800px]">
-          <VehicleInfo />
-          <ServiceInfo />
-        </div>
-
-        <div className="w-full md:w-1/3 lg:w-[280px]"> 
-          <OngoingCall />
-        </div>
+    <main className="py-4">
+  <div className="flex flex-col md:flex-row gap-5 justify-center  ml-[30px]">
+    <div className="w-full md:w-[25%] lg:w-[25%]"> 
+      <CustomerInfo />
+      <div className="mt-4">
+        <ScriptSuggestions />
       </div>
-    </main>
+    </div>
+
+    <div className="flex-1 md:w-[67%] lg:w-[67%]">
+      <VehicleInfo />
+      <ServiceInfo />
+    </div>
+
+    <div className="w-full md:w-[25%] lg:w-[25%]"> 
+      <OngoingCall />
+    </div>
+  </div>
+</main>
   </div>
 </CampaignProvider>
   );

@@ -21,7 +21,7 @@ export default function Header() {
     <div className="flex flex-col md:flex-row items-center justify-between bg-white shadow-md p-4 mb-5 pl-6 pr-6">
       
       {/* Left Section */}
-      <div className="flex items-center space-x-2 mb-4 md:mb-0">
+      <div className="flex items-center space-x-4 mb-4 md:mb-0">
         <div className="flex items-center">
           {/* SVG Logo */}
           <svg
@@ -68,18 +68,16 @@ export default function Header() {
       </div>
 
       {/* Auto Dialing Section */}
-      <div className="flex items-center rounded-lg px-4 py-2 text-gray-600 text-sm font-medium bg-gray-100 mb-4 md:mb-0 md:ml-4">
-        <span>Auto Dialing in</span>
-        <span className="font-bold ml-1 text-black">{autoDialCountdown} seconds</span>
-
-<button className="ml-3 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-110 transition-transform duration-300">
-    <i className="fas fa-pause"></i>
-</button>
-
-<button className="ml-2 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-110 transition-transform duration-300">
-    <i className="fas fa-play"></i>
-</button>
-      </div>
+      <div className="flex items-center rounded-lg px-4 py-2 text-gray-600 text-sm font-medium auto-dial mb-4 md:mb-0 md:ml-[50px]">
+          <span>Auto Dialing in</span>
+          <span className="font-bold ml-1 text-black">{autoDialCountdown} Seconds</span>       
+          <button className="ml-3 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg pause-play  hover-effect">
+            <i className="fas fa-pause"></i>
+          </button>
+          <button className="ml-2 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-lg pause-play  hover-effect">
+            <i className="fas fa-play "></i>
+          </button>
+        </div>
 
       {/* Right Section (Buttons) */}
       <div className="flex items-center space-x-3 justify-between md:ml-auto">
