@@ -15,18 +15,18 @@ export default function ScriptSuggestions() {
       <h2 className="font-bold">Script Suggestions</h2>
     </div>
 
-    <div className="space-y-3">
+    <div className="space-y-4 px-2">
       {currentCall.scriptSuggestions.map((suggestion) => (
-        <button
+        <p
           key={suggestion.id}
-          className="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-indigo-500 hover:bg-indigo-50 transition-colors"
+          className="border-l-2 border-gray-300 pl-4"
           onClick={() => {
             // Implement copy to clipboard or other action
             navigator.clipboard.writeText(suggestion.text);
           }}
         >
-          <p className="text-sm text-gray-900">{suggestion.text}</p>
-        </button>
+          <p className="text-[#6a6a6a] font-normal">{suggestion.text}</p>
+        </p>
       ))}
     </div>
   </div>
