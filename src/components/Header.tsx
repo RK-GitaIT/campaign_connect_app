@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import userImage from '../assets/Images/john-iimage.jpg'
 
 export default function Header() {
   const [autoDialCountdown, setAutoDialCountdown] = useState(10);
   const [isManualMode, setIsManualMode] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -51,13 +53,21 @@ export default function Header() {
         {/* Middle Section (Agent Info) */}
         <div className="flex items-center space-x-4">
           <div className="relative w-12 h-12 hover:scale-110 transition-transform duration-300">
-            <Image
-              src="https://randomuser.me/api/portraits/men/10.jpg"
-              alt="User"
-              width={48}
-              height={48}
-              className="w-12 h-12 rounded-full border border-gray-300"
-            />
+          {imageError || !userImage ? (
+        // Fallback UI: Show "J" with a purple background
+        <div className="w-12 h-12 bg-purple-600 text-white flex items-center justify-center font-bold text-lg rounded-full">
+          J
+        </div>
+      ) : (
+        <Image
+          src={userImage}
+          alt="User"
+          width={48}
+          height={48}
+          className="w-12 h-12 rounded-full"
+          onError={() => setImageError(true)} // Handle image load failure
+        />
+      )}
             <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
           </div>
           <div>
